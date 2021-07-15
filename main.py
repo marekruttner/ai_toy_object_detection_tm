@@ -17,7 +17,7 @@ for i in range(0,100):
     ai.classify_image(image)
     print(ai.get_prediction())
     lcd.clear()
-    lcd.write(ai.get_prediction())
+    lcd.write(str(ai.get_prediction()[0]))
     time.sleep(5)
 
 
