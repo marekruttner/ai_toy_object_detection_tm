@@ -27,4 +27,4 @@ The model unzip and copy and replace to folder converted_tflite
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-Copyright (c) <year> <copyright holders>
+Copyright (c) 2021 nvias, z. s.
