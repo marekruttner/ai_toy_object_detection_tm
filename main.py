@@ -24,11 +24,11 @@ def signal_handler(sig, frame):
 
 def button_pressed_callback(channel):
     print('Click')
-    global run
-    if(run):
-         run = False
-    else:
-         run = True
+    image = camera.get_frame()
+    ai.classify_image(image)
+    print(ai.get_prediction())
+    lcd.clear()
+    lcd.write(str(ai.get_prediction()[0]))
 
 if __name__ == '__main__':
     GPIO.setmode(GPIO.BCM)
@@ -39,14 +39,7 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, signal_handler)
     signal.pause()
     while(True):
-        while(run):
-            # image = Image.open('IMG_2060.jpg')
-            image = camera.get_frame()
-            print('frame get')
-            ai.classify_image(image)
-            print(ai.get_prediction())
-            lcd.clear()
-            lcd.write(str(ai.get_prediction()[0]))
-            time.sleep(5)
+        time.sleep(1)
+
 
 
