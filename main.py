@@ -16,27 +16,11 @@ import sys
 ai = Ai('converted_tflite')
 lcd = Display()
 BUTTON_GPIO = 26
-run = True
-
-for i in range(0,100):
-    #image = Image.open('IMG_2060.jpg')
-    image = camera.get_frame()
-    print('frame get')
-    ai.classify_image(image)
-    print(ai.get_prediction())
-    lcd.clear()
-    lcd.write(str(ai.get_prediction()[0]))
-    time.sleep(5)
-
-
-
-BUTTON_GPIO = 26
-
+run = False
 
 def signal_handler(sig, frame):
     GPIO.cleanup()
     sys.exit(0)
-
 
 def button_pressed_callback(channel):
     print('Click')
@@ -45,8 +29,6 @@ def button_pressed_callback(channel):
          run = False
     else:
          run = True
-
-
 
 if __name__ == '__main__':
     GPIO.setmode(GPIO.BCM)
