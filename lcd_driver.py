@@ -22,5 +22,5 @@ class Display:
         self.lcd.crlf()
 
     def clear(self):
-        self.lcd.crlf()
+        self.clear()
         time.sleep(0.1)
