@@ -24,10 +24,10 @@ def signal_handler(sig, frame):
 
 def button_pressed_callback(channel):
     print('Click')
+    lcd.clear()
     image = camera.get_frame()
     ai.classify_image(image)
     print(ai.get_prediction())
-    lcd.clear()
     lcd.write(str(ai.get_prediction()[0]))
 
 if __name__ == '__main__':
