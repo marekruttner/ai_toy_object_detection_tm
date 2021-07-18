@@ -20,5 +20,7 @@ class Display:
     def write(self,text):
         self.lcd.write_string(text)
         self.lcd.crlf()
+
     def clear(self):
         self.lcd.crlf()
+        time.sleep(0.1)
