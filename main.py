@@ -1,9 +1,7 @@
-import time
-
 #!/usr/bin/env python3
+import time
 from PIL import Image, ImageOps
 import numpy as np
-#from camera import get_frame
 import camera
 from ai_magic import Ai
 from lcd_driver import Display
