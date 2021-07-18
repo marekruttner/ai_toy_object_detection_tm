@@ -31,6 +31,7 @@ def button_pressed_callback(channel):
     lcd.write(str(ai.get_prediction()[0]))
 
 if __name__ == '__main__':
+    lcd.write('     NVIAS     ')
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(BUTTON_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     GPIO.add_event_detect(BUTTON_GPIO, GPIO.FALLING,
