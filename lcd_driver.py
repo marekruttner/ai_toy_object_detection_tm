@@ -19,8 +19,11 @@ class Display:
 
     def write(self,text):
         self.lcd.write_string(text)
-        self.lcd.crlf()
+
 
     def clear(self):
         self.lcd.clear()
         time.sleep(0.1)
+
+    def new_line(self):
+        self.lcd.crlf()

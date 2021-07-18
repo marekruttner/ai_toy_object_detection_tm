@@ -27,6 +27,8 @@ def button_pressed_callback(channel):
     ai.classify_image(image)
     print(ai.get_prediction())
     lcd.write(str(ai.get_prediction()[0]))
+    lcd.new_line()
+    lcd.write(str(ai.get_prediction()[1]))
 
 if __name__ == '__main__':
     lcd.write('     NVIAS     ')
