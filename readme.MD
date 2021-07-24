@@ -6,6 +6,12 @@ First of all clone the repository by typing to the console
 git clone https://github.com/DavidZah/game_boy_ai.git
 ```
 
+You must allow I2C and Camera by
+
+```
+In raspberry -> Raspberry Pi Configuration -> Interfaces -> enable LCD and I2C (reboot will be required)
+```
+
 After that write
 
 ```
@@ -15,6 +21,7 @@ pip install -r requirements.txt
 
 <h2>How to run it</h2>
 In console write
+
 ```
 python3 main.py
 ```

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-import time
-from PIL import Image, ImageOps
-import numpy as np
+
 import camera
 from ai_magic import Ai
 from lcd_driver import Display

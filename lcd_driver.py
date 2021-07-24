@@ -1,6 +1,6 @@
 from RPLCD import i2c
 import time
-import sys
+
 
 class Display:
     def __init__(self, addres = 0x27):
