@@ -1,23 +1,24 @@
 #!/usr/bin/env python3
 
-import camera
+#import camera
 from ai_magic import Ai
-from lcd_driver import Display
+#from lcd_driver import Display
 import time
-import RPi.GPIO as GPIO
-import signal
+#import RPi.GPIO as GPIO
+#import signal
 import sys
 
 
 ai = Ai('converted_tflite')
-lcd = Display()
+"""lcd = Display()
 BUTTON_GPIO = 26
-run = False
+run = False"""
 
-def signal_handler(sig, frame):
+"""def signal_handler(sig, frame):
     GPIO.cleanup()
-    sys.exit(0)
+    sys.exit(0)"""
 
+"""
 def button_pressed_callback(channel):
     print('Click')
     lcd.clear()
@@ -27,6 +28,12 @@ def button_pressed_callback(channel):
     lcd.write(str(ai.get_prediction()[0]))
     lcd.new_line()
     lcd.write(str(ai.get_prediction()[1]))
+"""
+def main():
+    while True:
+        image = camera.get_image_stream()
+        ai.classify_image(image)
+        print(ai.get_prediction())
 
 if __name__ == '__main__':
     lcd.write('     NVIAS     ')
