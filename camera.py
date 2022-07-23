@@ -17,5 +17,7 @@ def get_image_stream():
             sys.exit(
                 "Error: Failed to read from camera"
             )
-    image = Image.open(stream)
-    return image
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = Image.fromarray(image)
+        #image = Image.open(stream)
+        return image

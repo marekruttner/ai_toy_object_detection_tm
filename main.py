@@ -34,6 +34,7 @@ def main():
         image = camera.get_image_stream()
         ai.classify_image(image)
         print(ai.get_prediction())
+        print("SUCCESSFULY DONE ;-)")
 
 if __name__ == '__main__':
     """
