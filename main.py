@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-#import camera
+import camera
 from ai_magic import Ai
 #from lcd_driver import Display
 import time
