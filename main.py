@@ -36,6 +36,7 @@ def main():
         print(ai.get_prediction())
 
 if __name__ == '__main__':
+    """
     lcd.write('     NVIAS     ')
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(BUTTON_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -46,6 +47,8 @@ if __name__ == '__main__':
     signal.pause()
     while(True):
         time.sleep(1)
+    """
+    main()
 
 
 
