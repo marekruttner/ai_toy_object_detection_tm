@@ -30,7 +30,7 @@ def button_pressed_callback(channel):
     lcd.write(str(ai.get_prediction()[1]))
 """
 def main():
-    while True:
+    for i in range(1):
         image = camera.get_image_stream()
         ai.classify_image(image)
         print(ai.get_prediction())
