@@ -11,7 +11,7 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
 # Create the in-memory stream
 def get_image_stream():
-    while cap.is_open():
+    while cap.isOpened():
         success, image = cap.read()
         if not success:
             sys.exit(
