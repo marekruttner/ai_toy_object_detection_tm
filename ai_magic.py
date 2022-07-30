@@ -39,6 +39,14 @@ class Ai:
         self.interpreter.invoke()
         output_details = self.interpreter.get_output_details()[0]
         output = np.squeeze(self.interpreter.get_tensor(output_details['index']))
+        positions = np.squeeze(self.interpreter.get_tensor(output_details['index']))
+        print(positions) #DEV STUFF comment all line in final version 
+
+        #boxes = self.interpreter.get_tensor(output_details['index'])[0]
+        """
+        clases = self.interpreter.get_tensor(output_details['classes_idx']['index'])[0]
+        scores = self.interpreter.get_tensor(output_details['scores_idx'])[0]
+        """
 
         # If the model is quantized (uint8 data), then dequantize the results
         if output_details['dtype'] == np.uint8:
@@ -47,3 +55,18 @@ class Ai:
 
         ordered = np.argpartition(-output, top_k)
         self.last_prediction = output
+    """
+    def bbox(self):
+        
+        #boxes_idx, classes_idx, scores_idx = 1, 3, 0
+
+        self.interpreter.invoke()
+        output_details = self.interpreter.get_output_details()[0]
+
+        boxes = self.interpreter.get_tensor(output_details['index'])[0]
+        
+        clases = self.interpreter.get_tensor(output_details['classes_idx']['index'])[0]
+        scores = self.interpreter.get_tensor(output_details['scores_idx'])[0]
+        
+        return boxes
+    """

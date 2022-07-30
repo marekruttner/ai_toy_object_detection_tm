@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
-import camera
+from camera import *
 from ai_magic import Ai
 #from lcd_driver import Display
 import time
 #import RPi.GPIO as GPIO
 #import signal
 import sys
+import cv2
+import numpy as np
 
 
 ai = Ai('converted_tflite')
@@ -29,12 +31,39 @@ def button_pressed_callback(channel):
     lcd.new_line()
     lcd.write(str(ai.get_prediction()[1]))
 """
+
+def visualize(image):
+    """
+    for i in range(len(prediction)):
+        image = np.array(image)
+
+        color = (0, 0, 255)
+        boxes = ai.bbox()
+        imW, imH = int(width), int(height)
+        #boxes = boxes
+
+        ymin = int(max(1, (boxes[i][0] * imH)))
+        xmin = int(max(1, (boxes[i][1] * imW)))
+        ymax = int(min(imH, (boxes[i][2] * imH)))
+        xmax = int(min(imW, (boxes[i][3] * imW)))
+
+        cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color, 2)
+    """
+    image = np.array(image)
+    cv2.imshow("image",image)
+    
+
+
 def main():
-    for i in range(1):
-        image = camera.get_image_stream()
-        ai.classify_image(image)
-        print(ai.get_prediction())
-        print("SUCCESSFULY DONE ;-)")
+    while True:
+        image = get_image_stream()
+        prediction = ai.classify_image(image)
+        print(ai.get_prediction()) #DEV STUFF comment all line in final version
+        visualize(image)
+
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
+    print("SUCCESSFULY DONE ;-)")
 
 if __name__ == '__main__':
     """
