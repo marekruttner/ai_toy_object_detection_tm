@@ -49,20 +49,49 @@ def visualize(image):
 
         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color, 2)
     """
+    prediction = ai.classify_image(image)
+
     image = np.array(image)
-    cv2.imshow("image",image)
+    position = np.squeeze(ai.positions)
+    
+    for i in range(len(ai.positions)):
+        color = (0, 0, 255)
+        imW, imH = int(width), int(height)
+        
+        print(ai.get_prediction())
+        print(position)
+        """
+        ymin = int(1 * (position[0] * imH))
+        xmin = int(1 * (position[1] * imW))
+        ymax = int(imH * (position[0] * imH))
+        xmax = int(imW  (position[1] * imW))
+        """
+        ymin = int(position[1] * imH)
+        xmin = int(position[0] * imW)
+        ymax = int(position[1] * imH)
+        xmax = int(position [0] * imW)
+
+        print(ymin, xmin, ymax, xmax)
+
+        cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color, 2)
+        cv2.imshow("image",image) 
+    #cv2.imshow("image",image)
     
 
 
 def main():
     while True:
         image = get_image_stream()
-        prediction = ai.classify_image(image)
-        print(ai.get_prediction()) #DEV STUFF comment all line in final version
+        #prediction = ai.classify_image(image)
+        #print(ai.get_prediction()) #DEV STUFF comment all line in final version
+        #print(ai.positions) #DEV STUFF comment all line in final version
         visualize(image)
 
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
+
+        
+
     print("SUCCESSFULY DONE ;-)")
 
 if __name__ == '__main__':

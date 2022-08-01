@@ -39,8 +39,13 @@ class Ai:
         self.interpreter.invoke()
         output_details = self.interpreter.get_output_details()[0]
         output = np.squeeze(self.interpreter.get_tensor(output_details['index']))
-        positions = np.squeeze(self.interpreter.get_tensor(output_details['index']))
-        print(positions) #DEV STUFF comment all line in final version 
+        positions = self.interpreter.get_tensor(output_details['index'])
+        #classes = np.squeeze(self.interpreter.get_tensor(output_details['index']))
+        #scores = np.squeeze(self.interpreter.get_tensor(output_details['index']))
+        
+        #print(positions) #DEV STUFF comment all line in final version 
+        #print(classes) #DEV STUFF comment all line in final version
+        #print(scores) #DEV STUFF comment all line in final version
 
         #boxes = self.interpreter.get_tensor(output_details['index'])[0]
         """
@@ -55,6 +60,7 @@ class Ai:
 
         ordered = np.argpartition(-output, top_k)
         self.last_prediction = output
+        self.positions = positions
     """
     def bbox(self):
         
