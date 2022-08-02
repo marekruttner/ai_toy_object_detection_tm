@@ -50,10 +50,10 @@ def visualize(image):
         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color, 2)
     """
     prediction = ai.classify_image(image)
-
     image = np.array(image)
-    position = np.squeeze(ai.positions)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     
+    position = np.squeeze(ai.positions)
     for i in range(len(ai.positions)):
         color = (0, 0, 255)
         imW, imH = int(width), int(height)
@@ -64,16 +64,17 @@ def visualize(image):
         ymin = int(1 * (position[0] * imH))
         xmin = int(1 * (position[1] * imW))
         ymax = int(imH * (position[0] * imH))
-        xmax = int(imW  (position[1] * imW))
+        xmax = int(imW * (position[1] * imW))
         """
         ymin = int(position[1] * imH)
         xmin = int(position[0] * imW)
-        ymax = int(position[1] * imH)
-        xmax = int(position [0] * imW)
-
+        ymax = int(position[1] * imH + ymin)
+        xmax = int(position[0]* imW + xmin)
+        
         print(ymin, xmin, ymax, xmax)
 
-        cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color, 2)
+        cv2.rectangle(image, (xmax, ymax), (xmin, ymin), color, 2)
+        #cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color, 2)
         cv2.imshow("image",image) 
     #cv2.imshow("image",image)
     
