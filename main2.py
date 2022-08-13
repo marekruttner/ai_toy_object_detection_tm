@@ -53,9 +53,9 @@ class VideoStream:
         
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', help='Provide the path to the TFLite file, default is models/model.tflite',
-                    default='models/model.tflite')
+                    default='converted_tflite/model_unquant.tflite')
 parser.add_argument('--labels', help='Provide the path to the Labels, default is models/labels.txt',
-                    default='models/labels.txt')
+                    default='converted_tflite/labels.txt')
 parser.add_argument('--threshold', help='Minimum confidence threshold for displaying detected objects',
                     default=0.5)
 parser.add_argument('--resolution', help='Desired webcam resolution in WxH. If the webcam does not support the resolution entered, errors may occur.',
