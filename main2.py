@@ -1,4 +1,5 @@
-mport tflite_runtime.interpreter as tflite
+
+import tflite_runtime.interpreter as tflite
 import os
 import argparse
 import cv2
@@ -8,15 +9,57 @@ import time
 from threading import Thread
 import importlib.util
 
+# Define VideoStream class to handle streaming of video from webcam in separate processing thread
+# Source - Adrian Rosebrock, PyImageSearch: https://www.pyimagesearch.com/2015/12/28/increasing-raspberry-pi-fps-with-python-and-opencv/
+class VideoStream:
+    """Camera object that controls video streaming from the Picamera"""
+    def __init__(self,resolution=(640,480),framerate=30):
+        # Initialize the PiCamera and the camera image stream
+        self.stream = cv2.VideoCapture(0)
+        ret = self.stream.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        ret = self.stream.set(3,resolution[0])
+        ret = self.stream.set(4,resolution[1])
+            
+        # Read first frame from the stream
+        (self.grabbed, self.frame) = self.stream.read()
+
+	# Variable to control when the camera is stopped
+        self.stopped = False
+
+    def start(self):
+	# Start the thread that reads frames from the video stream
+        Thread(target=self.update,args=()).start()
+        return self
+
+    def update(self):
+        # Keep looping indefinitely until the thread is stopped
+        while True:
+            # If the camera is stopped, stop the thread
+            if self.stopped:
+                # Close camera resources
+                self.stream.release()
+                return
+
+            # Otherwise, grab the next frame from the stream
+            (self.grabbed, self.frame) = self.stream.read()
+
+    def read(self):
+	# Return the most recent frame
+        return self.frame
+
+    def stop(self):
+	# Indicate that the camera and thread should be stopped
+        self.stopped = True
+        
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', help='Provide the path to the TFLite file, default is models/model.tflite',
                     default='models/model.tflite')
 parser.add_argument('--labels', help='Provide the path to the Labels, default is models/labels.txt',
                     default='models/labels.txt')
-parser.add_argument('--video', help='Name of the video to perform detection on',
-                    default='test.mp4')
 parser.add_argument('--threshold', help='Minimum confidence threshold for displaying detected objects',
                     default=0.5)
+parser.add_argument('--resolution', help='Desired webcam resolution in WxH. If the webcam does not support the resolution entered, errors may occur.',
+                    default='1280x720')
                     
 args = parser.parse_args()
 
@@ -26,12 +69,11 @@ PATH_TO_MODEL_DIR = args.model
 # PROVIDE PATH TO LABEL MAP
 PATH_TO_LABELS = args.labels
 
-# PROVIDE PATH TO VIDEO DIRECTORY
-VIDEO_PATH = args.video
-
 # PROVIDE THE MINIMUM CONFIDENCE THRESHOLD
 MIN_CONF_THRESH = float(args.threshold)
 
+resW, resH = args.resolution.split('x')
+imW, imH = int(resW), int(resH)
 import time
 print('Loading model...', end='')
 start_time = time.time()
@@ -60,18 +102,19 @@ input_std = 127.5
 # Initialize frame rate calculation
 frame_rate_calc = 1
 freq = cv2.getTickFrequency()
-print('Running inference for {}... '.format(VIDEO_PATH), end='')
-# Initialize video
-video = cv2.VideoCapture(VIDEO_PATH)
-imW = video.get(cv2.CAP_PROP_FRAME_WIDTH)
-imH = video.get(cv2.CAP_PROP_FRAME_HEIGHT)
-while(video.isOpened()):
+print('Running inference for PiCamera')
+# Initialize video stream
+videostream = VideoStream(resolution=(imW,imH),framerate=30).start()
+time.sleep(1)
+
+#for frame1 in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):
+while True:
     # Start timer (for calculating frame rate)
     current_count=0
     t1 = cv2.getTickCount()
 
     # Grab frame from video stream
-    ret, frame1 = video.read()
+    frame1 = videostream.read()
 
     # Acquire frame and resize to expected shape [1xHxWx3]
     frame = frame1.copy()
@@ -131,4 +174,5 @@ while(video.isOpened()):
 
 # Clean up
 cv2.destroyAllWindows()
+videostream.stop()
 print("Done")
