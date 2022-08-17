@@ -282,7 +282,7 @@ def make_interpreter(model_file, use_edgetpu):
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-m', '--model', type=str, help='File path of .tflite file.', default='converted_tflite/model_unquant.tflite')
-    parser.add_argument('-l', '--labels', type=str, help='File path of labels file.' default='converted_tflite/labels.txt')
+    parser.add_argument('-l', '--labels', type=str, help='File path of labels file.', default='converted_tflite/labels.txt')
     parser.add_argument('-t', '--threshold', type=float, default=0.4, required=False, help='Score threshold for detected objects.')
     parser.add_argument('-p', '--picamera', action='store_true', default=False, help='Use PiCamera for image capture')
     parser.add_argument('-e', '--use_edgetpu', action='store_true', default=False, help='Use EdgeTPU')
