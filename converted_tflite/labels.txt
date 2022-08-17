@@ -1,2 +1,2 @@
-0 3DTISK
-1 Petka
+0 Class 1
+1 Class 2

@@ -63,18 +63,18 @@ def visualize(image):
         """
         ymin = int(1 * (position[0] * imH))
         xmin = int(1 * (position[1] * imW))
-        ymax = int(imH * (position[0] * imH))
-        xmax = int(imW * (position[1] * imW))
+        ymax = int(ymin * (position[0] * imH))
+        xmax = int(xmin * (position[1] * imW))
         """
         ymin = int(position[1] * imH)
         xmin = int(position[0] * imW)
         ymax = int(position[1] * imH + ymin)
         xmax = int(position[0]* imW + xmin)
         
-        print(ymin, xmin, ymax, xmax)
+        print(xmin, ymin, xmax, ymax)
 
-        cv2.rectangle(image, (xmax, ymax), (xmin, ymin), color, 2)
-        #cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color, 2)
+        #cv2.rectangle(image, (xmax, ymax), (xmin, ymin), color, 2)
+        cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color, 2)
         cv2.imshow("image",image) 
     #cv2.imshow("image",image)
     
