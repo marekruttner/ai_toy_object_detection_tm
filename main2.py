@@ -12,7 +12,7 @@ import importlib.util
 # Define VideoStream class to handle streaming of video from webcam in separate processing thread
 # Source - Adrian Rosebrock, PyImageSearch: https://www.pyimagesearch.com/2015/12/28/increasing-raspberry-pi-fps-with-python-and-opencv/
 class VideoStream:
-    """Camera object that controls video streaming from the Picamera"""
+    Camera object that controls video streaming from the Picamera
     def __init__(self,resolution=(640,480),framerate=30):
         # Initialize the PiCamera and the camera image stream
         self.stream = cv2.VideoCapture(0)
@@ -281,8 +281,8 @@ def make_interpreter(model_file, use_edgetpu):
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-m', '--model', type=str, required=True, help='File path of .tflite file.', default='converted_tflite/model_unquant.tflite')
-    parser.add_argument('-l', '--labels', type=str, required=True, help='File path of labels file.' default='converted_tflite/labels.txt')
+    parser.add_argument('-m', '--model', type=str, help='File path of .tflite file.', default='converted_tflite/model_unquant.tflite')
+    parser.add_argument('-l', '--labels', type=str, help='File path of labels file.' default='converted_tflite/labels.txt')
     parser.add_argument('-t', '--threshold', type=float, default=0.4, required=False, help='Score threshold for detected objects.')
     parser.add_argument('-p', '--picamera', action='store_true', default=False, help='Use PiCamera for image capture')
     parser.add_argument('-e', '--use_edgetpu', action='store_true', default=False, help='Use EdgeTPU')
