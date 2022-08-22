@@ -1,0 +1,3 @@
+0 me
+1 mobil
+2 aitoy
