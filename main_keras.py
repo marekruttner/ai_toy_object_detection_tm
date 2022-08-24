@@ -98,38 +98,53 @@ def main():
             borderType=cv2.BORDER_CONSTANT,
             value=[0, 0, 0]
         )
-        """
-        if confidence[i] > conf_threshold:
-                speakQ.put(classes[i])
-                threshold_class = classes[i]
-                print(threshold_class)
-        """        
+
         for i in range(0, len(classes)):
             confidence.append(int(predictions[0][i]*100))
-            
-            if (i != 0 and not i % per_line):
-                cv2.putText(
-                    img=bordered_frame,
-                    text=conf_label,
-                    org=(int(0), int(frameHeight+25+15*math.ceil(i/per_line))),
-                    fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-                    fontScale=0.5,
-                    color=(255, 255, 255)
-                )
-                conf_label = ""
+            if confidence[i] > conf_threshold:
 
-            conf_label += classes[i] + ": " + str(confidence[i]) + "%; "
-    
-            if (i == (len(classes)-1)):
+                speakQ.put(classes[i])
+                threshold_class = classes[i]
+                print(threshold_class, " ", confidence[i], "%")
+                
+                conf_label = classes[i] + ": " + str(confidence[i]) + "%; "
+
+                print(conf_label)
+                """
+                cv2.putText(
+                    bordered_frame, 
+                    conf_label, 
+                    (int(0), int(frameHeight-50)),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.75,
+                    (255, 255, 255)
+                )
+                """
+                
                 cv2.putText(
                     img=bordered_frame,
                     text=conf_label,
-                    org=(int(0), int(frameHeight+25+15*math.ceil((i+1)/per_line))),
+                    #org=(int(0), int(-(frameHeight+25+15*math.ceil(i/per_line)))),
+                    org=(120, 240),
                     fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-                    fontScale=0.5,
+                    fontScale=1,
                     color=(255, 255, 255)
                 )
-                conf_label = ""
+                    
+                """
+                conf_label = classes[i] + ": " + str(confidence[i]) + "%; "
+        
+                if (i == (len(classes)-1)):
+                    cv2.putText(
+                        img=bordered_frame,
+                        text=conf_label,
+                        org=(0), int(frameHeight + 25 + 15 * math.ceil((i + 1) / per_line))),
+                        fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+                        fontScale=0.5,
+                        color=(255, 255, 255)
+                    )
+                    conf_label = ""
+                """
             """
             cv2.putText(
                     img=bordered_frame,
@@ -141,27 +156,38 @@ def main():
             )
                 #print(classes) #DEV STUFF comment all line in final version
             """         
+
+            """
             if confidence[i] > conf_threshold:
                 speakQ.put(classes[i])
                 threshold_class = classes[i]
-                print(threshold_class)
+                print(threshold_class, confidence[i])
             
                 
                 cv2.putText(
                     img=bordered_frame,
                     text=threshold_class,
-                    org=(int(1), int(frameHeight+20)),
+                    org=(int(frameWidth / 2), int(frameHeight + 20)),
                     fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                     fontScale=0.75,
                     color=(255, 255, 255)
                 )
-                
+            """ 
 
-        cv2.imshow("Capturing", bordered_frame)
+            cv2.putText(
+                    bordered_frame, 
+                    conf_label, 
+                    (int(0), int(frameHeight-50)),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.75,
+                    (255, 255, 255)
+                )
+
+            cv2.imshow("Capturing", bordered_frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-    #p1.terminate()
+    p1.terminate()
 
 
 if __name__ == '__main__':
