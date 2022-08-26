@@ -1,7 +1,7 @@
 import multiprocessing
 import numpy as np
 import cv2
-import tensorflow.keras as tf
+import keras as tf
 import pyttsx3
 import math
 import os
@@ -71,7 +71,7 @@ def main():
 
         
         check, frame = cap.read()
-        
+        frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
         
         margin = int(((frameWidth-frameHeight)/2))
