@@ -183,6 +183,8 @@ def main():
                     (255, 255, 255)
                 )
 
+            cv2.namedWindow('Capturing', cv2.WND_PROP_FULLSCREEN)
+            cv2.setWindowProperty('Capturing', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
             cv2.imshow("Capturing", bordered_frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
