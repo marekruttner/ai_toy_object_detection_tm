@@ -120,7 +120,7 @@ def main():
                     (255, 255, 255)
                 )
                 """
-                
+                """
                 cv2.putText(
                     img=bordered_frame,
                     text=conf_label,
@@ -130,6 +130,7 @@ def main():
                     fontScale=1,
                     color=(255, 255, 255)
                 )
+                """
                     
                 """
                 conf_label = classes[i] + ": " + str(confidence[i]) + "%; "
@@ -177,9 +178,9 @@ def main():
             cv2.putText(
                     bordered_frame, 
                     conf_label, 
-                    (int(frameWidth-512), int(frameHeight+20))),
+                    (int(frameWidth-512), int(frameHeight+20)),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    0.75,
+                    1,
                     (255, 255, 255)
                 )
 
