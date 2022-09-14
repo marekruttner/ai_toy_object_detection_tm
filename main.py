@@ -125,7 +125,7 @@ def main():
                     img=bordered_frame,
                     text=conf_label,
                     #org=(int(0), int(-(frameHeight+25+15*math.ceil(i/per_line)))),
-                    org=(120, 240),
+                    org=(int(frameWidth/2), int(frameHeight-20)),
                     fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                     fontScale=1,
                     color=(255, 255, 255)
@@ -177,7 +177,7 @@ def main():
             cv2.putText(
                     bordered_frame, 
                     conf_label, 
-                    (int(0), int(frameHeight-50)),
+                    (int(frameWidth-512), int(frameHeight+20))),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.75,
                     (255, 255, 255)
