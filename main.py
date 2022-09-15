@@ -196,10 +196,10 @@ def main():
 
 
 if __name__ == '__main__':
-    new_model = input("Do you want to copy new model [y/n]? ")
-    if new_model == 'y':
+    #new_model = input("Do you want to copy new model [y/n]? ")
+    if input("Do you want to copy new model [y/n]? ") == 'y':
         model_copy()
         main()
     
-    if new_model == 'n':
+    else:
         main()
