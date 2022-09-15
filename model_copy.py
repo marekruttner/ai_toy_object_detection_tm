@@ -4,7 +4,7 @@ import shutil
 
 dir_path = '/media/pi' #path to where OS automount USB drives
 target_copy_dir = '/home/pi/ai_toy_object_detection_tm/model' #where it will be coppied to
-name_of_file = 'testfile' #starting characters in name of our file eg our file is named "testfile1.txt" we want every file that starts with "testfile" this file will be selected
+name_of_file = 'keras_model.h5' #starting characters in name of our file eg our file is named "testfile1.txt" we want every file that starts with "testfile" this file will be selected
 
 infinite_loop = 1 #make zero to stop after one filecopy
 

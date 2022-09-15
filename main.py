@@ -6,6 +6,8 @@ import pyttsx3
 import math
 import os
 
+import model_copy
+
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
@@ -194,4 +196,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    new_model = input("Do you want to copy new model [y/n]? ")
+    if new_model == 'y':
+        model_copy()
+        main()
+    
+    if new_model == 'n':
+        main()
