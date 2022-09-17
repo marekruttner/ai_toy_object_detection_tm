@@ -27,7 +27,7 @@ def speak(speakQ, ):
 
 
 def main():
-    labels_path = f"{DIR_PATH}/model/labels.txt"
+    labels_path = f"{DIR_PATH}/converted_keras/labels.txt"
     labelsfile = open(labels_path, 'r')
 
     classes = []
@@ -37,7 +37,7 @@ def main():
         line = labelsfile.readline()
     labelsfile.close()
 
-    model_path = f"{DIR_PATH}/model/keras_model.h5"
+    model_path = f"{DIR_PATH}/converted_keras/keras_model.h5"
     model = tf.models.load_model(model_path, compile=False)
 
     cap = cv2.VideoCapture(0)
