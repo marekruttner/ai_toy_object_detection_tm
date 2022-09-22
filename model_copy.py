@@ -39,8 +39,8 @@ def delete_copy(target_to_copy): #target must be a complete path
     
     #now copy the file to the prepared directory
     shutil.copy2(target_to_copy, target_copy_dir)
-    with zipfile.ZipFile(target_to_copy_dir+name_of_file, 'r') as zip_ref:
-        zip_ref.extractall()
+    with zipfile.ZipFile(name_of_file, 'r') as zip_ref:
+        zip_ref.extractall(target_copy_dir)
     print('copied')
 
 
