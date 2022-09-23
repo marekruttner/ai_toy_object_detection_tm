@@ -2,15 +2,16 @@ import os
 import time
 import shutil
 import zipfile
+import glob
 
-dir_path = '/media/pi' #path to where OS automount USB drives
+dir_path = '/media/pi/' #path to where OS automount USB drives
 target_copy_dir = '/home/pi/ai_toy_object_detection_tm/' #where it will be coppied to
-name_of_file = 'converted_keras.zip' #starting characters in name of our file eg our file is named "testfile1.txt" we want every file that starts with "testfile" this file will be selected
+name_of_file = ''.join(glob.glob('./converted_keras???.zip')) #starting characters in name of our file eg our file is named "testfile1.txt" we want every file that starts with "testfile" this file will be selected
 
 infinite_loop = 1 #make zero to stop after one filecopy
 
 #look through the usb file for desired file == name_of_file
-
+"""
 def look_through (directory): #look through the newly dicovered flash drive for our file
     file_list = os.listdir(directory)
     print(file_list)
@@ -21,14 +22,16 @@ def look_through (directory): #look through the newly dicovered flash drive for 
             print(found_file)
             return found_file
     return 0
-        
+"""
+name_of_file = found_file
+
 def delete_copy(target_to_copy): #target must be a complete path
     #first scan target directory for files with same name and delete them
     scan_result = look_through(target_copy_dir)
     print('delete copy scan result: ' + str(scan_result))
     while ( 0 != scan_result):
         print('found: ' + scan_result)
-        scan_result_path = target_copy_dir + "/" + scan_result
+        scan_result_path = target_copy_dir + scan_result
         if os.path.isfile(scan_result_path):
             os.remove(scan_result_path)
             print('file has been deleted')
