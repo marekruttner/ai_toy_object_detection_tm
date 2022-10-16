@@ -21,7 +21,7 @@ class AiToySoftware(App):
     def aBtn2Action(self):
         os.system("python "+DIR_PATH+'/dataset_capture/main.py')
 
-    def bBtn1Action(self):
+    def bBtn1Action(self, instance):
         os.system("python "+DIR_PATH+'/model_copy.py')
         
     def bBtn2Action(self, instance):

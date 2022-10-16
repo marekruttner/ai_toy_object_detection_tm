@@ -196,6 +196,7 @@ def main():
 
 
 if __name__ == '__main__':
+    """
     #new_model = input("Do you want to copy new model [y/n]? ")
     if input("Do you want to copy new model [y/n]? ") == 'y':
         import model_copy
@@ -203,3 +204,5 @@ if __name__ == '__main__':
     
     else:
         main()
+    """
+    main()
