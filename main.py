@@ -6,6 +6,8 @@ import pyttsx3
 import math
 import os
 
+#from model_copy import *
+
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
@@ -180,8 +182,9 @@ def main():
                     conf_label, 
                     (int(frameWidth-512), int(frameHeight+20)),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    1,
-                    (255, 255, 255)
+                    2,
+                    (255, 255, 255),
+                    1,5
                 )
 
             cv2.namedWindow('Capturing', cv2.WND_PROP_FULLSCREEN)
@@ -194,4 +197,13 @@ def main():
 
 
 if __name__ == '__main__':
+    """
+    #new_model = input("Do you want to copy new model [y/n]? ")
+    if input("Do you want to copy new model [y/n]? ") == 'y':
+        import model_copy
+        main()
+    
+    else:
+        main()
+    """
     main()
