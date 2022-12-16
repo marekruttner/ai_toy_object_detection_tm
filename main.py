@@ -182,8 +182,9 @@ def main():
                     conf_label, 
                     (int(frameWidth-512), int(frameHeight+20)),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    1,
-                    (255, 255, 255)
+                    2,
+                    (255, 255, 255),
+                    1,5
                 )
 
             cv2.namedWindow('Capturing', cv2.WND_PROP_FULLSCREEN)
