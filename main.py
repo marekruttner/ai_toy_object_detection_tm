@@ -5,6 +5,9 @@ import keras as tf
 import pyttsx3
 import math
 import os
+from gpiozero import Button
+
+btn = Button(14)
 
 #from model_copy import *
 
@@ -180,7 +183,7 @@ def main():
             cv2.putText(
                     bordered_frame, 
                     conf_label, 
-                    (int(frameWidth-512), int(frameHeight+20)),
+                    (int(frameWidth-1024), int(frameHeight+5)),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     2,
                     (255, 255, 255),
@@ -190,7 +193,7 @@ def main():
             cv2.namedWindow('Capturing', cv2.WND_PROP_FULLSCREEN)
             cv2.setWindowProperty('Capturing', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
             cv2.imshow("Capturing", bordered_frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & btn.is_pressed:
             break
 
     p1.terminate()
