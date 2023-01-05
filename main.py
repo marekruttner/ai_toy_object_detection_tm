@@ -193,7 +193,7 @@ def main():
             cv2.namedWindow('Capturing', cv2.WND_PROP_FULLSCREEN)
             cv2.setWindowProperty('Capturing', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
             cv2.imshow("Capturing", bordered_frame)
-        if cv2.waitKey(1) & btn.is_pressed():
+        if cv2.waitKey(1) & btn.is_pressed:
             break
 
     p1.terminate()
