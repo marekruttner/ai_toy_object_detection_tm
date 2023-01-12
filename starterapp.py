@@ -16,13 +16,13 @@ black = [0, 0, 0, 0]
 
 class AiToySoftware(App):
     def aBtn1Action(self, instance):
-        os.system("python "+DIR_PATH+'/main.py')
+        os.system("python3 "+DIR_PATH+'/main.py')
 
     def aBtn2Action(self):
         os.system("python "+DIR_PATH+'/dataset_capture/main.py')
 
     def bBtn1Action(self, instance):
-        os.system("python "+DIR_PATH+'/model_copy.py')
+        os.system("python3 "+DIR_PATH+'/model_copy.py')
         
     def bBtn2Action(self, instance):
         webbrowser.open('https://www.nvias.org/', new=1)
