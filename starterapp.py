@@ -9,19 +9,19 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 class MainWidget(Widget):
     def ICbtnAction(self):
-        os.system("python " + DIR_PATH + '/main.py')
+        os.system("python3 " + DIR_PATH + '/main.py')
 
     def DCbtnAction(self):
-        os.system("python " + DIR_PATH + '/dataset_capture/main.py')
+        os.system("python3 " + DIR_PATH + '/dataset_capture/main.py')
 
     def MCbtnAction(self):
-        os.system("python " + DIR_PATH + '/model_copy.py')
+        os.system("python3 " + DIR_PATH + '/model_copy.py')
 
     def NVbtnAction(self):
         webbrowser.open('https://www.nvias.org/', new=1)
 
     def ODbtnAction(self):
-        pass
+        os.system("python3 " + DIR_PATH + '/effeciend_net/detect.py')
 
     def FMbtnAction(self):
         pass
