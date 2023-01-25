@@ -10,7 +10,7 @@ MainWidget:
             size: self.size
     
     Button:
-        background_normal: "plus.png"
+        background_normal: "images/plus.png"
         on_press: root.btn_show_popup()
         size: "80dp", "80dp"
         pos: "500dp", "100dp"
@@ -28,7 +28,7 @@ MainWidget:
 <P>:
 
     TextInput:
-        id: input
+        id: textinput
         multiline: False
         hint_text: "folder name"
         pos_hint: {'center_x': 0.5, 'center_y': 0.705}
@@ -37,9 +37,6 @@ MainWidget:
     Button:
         text: "Submit"
         on_press: root.on_close_popup()
+        on_press: root.create_folder_btn()
         pos_hint: {'center_x': 0.5, 'center_y': 0.3}
         size_hint: 0.95, 0.4  
-
-
-        
-
