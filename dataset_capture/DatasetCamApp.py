@@ -3,18 +3,84 @@ from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.image import Image
+from kivy.clock import Clock
+from kivy.graphics.texture import Texture
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.video import Video
+from kivymd.app import MDApp
+from kivymd.uix.floatlayout import MDFloatLayout
+from kivy.properties import ObjectProperty
+from kivy.properties import NumericProperty
 import os
+from camera4kivy import Preview
+os.environ["KIVY_VIDEO"] = "ffpyplayer"
 
+from vizualize import video_inp
+
+import cv2
 
 class MainWidget(Widget):
     def btn_show_popup(self):
-        show_popup(self)  
+        show_popup(self)
+
+    """
+    def image_show(self):
+        show_video(self)
+
+    """
+    """
+    def build(self):
+        self.img1=Image()
+        layout = BoxLayout()
+        layout.add_widget(self.img1)
+        #opencv2 stuffs
+        self.capture = cv2.VideoCapture(0)
+        cv2.namedWindow("CV2 Image")
+        Clock.schedule_interval(self.update, 1.0/33.0)
+        cv2.waitKey(1)
+        return layout
+
+    def update(self, dt):
+        # display image from cam in opencv window
+        ret, frame = self.capture.read()
+        cv2.imshow("CV2 Image", frame)
+        # convert it to texture
+        buf1 = cv2.flip(frame, 0)
+        buf = buf1.tostring()
+        texture1 = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
+        #if working on RASPBERRY PI, use colorfmt='rgba' here instead, but stick with "bgr" in blit_buffer.
+        texture1.blit_buffer(buf, colorfmt='bgr', bufferfmt='ubyte')
+        # display image from the texture
+        self.img1.texture = texture1
+    """
+
+    """
+    def build(self):
+        #layout = MDBoxLayout(orientation='vertical')
+        # self.image = Image(size=("600dp", "350dp"), pos=("50dp", "200dp"))
+        self.image = Image()
+        #layout.add_widget(self.image)
+        # layout.add_widget(self.image, size_hint=("600dp", "350dp"), pos_hint={"50dp", "200dp"})
+        # layout.add_widget(self.image,pos_hint={"50dp", "200dp"})
+        self.capture = cv2.VideoCapture(0)
+        Clock.schedule_interval(self.load_video, 1.0 / 30)
+        return Image
+
+    def load_video(self, *args):
+        ret, frame = self.capture.read()
+        self.image_frame = frame
+        buffer = cv2.flip(frame, 0).tostring()
+        #for RPI change colorfmt='bgr' to colorfmt='rgba'
+        texture = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
+        texture.blit_buffer(buffer, colorfmt='bgr', bufferfmt='ubyte')
+        self.image.texture = texture
+    """
 
 
 class P(FloatLayout):
     global value
     value = 1
-
 
     def on_close_popup(self):
         create_folder(self)
@@ -89,8 +155,102 @@ class P(FloatLayout):
         elif value == 5:
             window.dismiss()
 
+class KivyCamera(Image):
+
+    source = ObjectProperty(0)
+
+    #fps = NumericProperty(300)
+    """
+    def __init__(self, **kwargs):
+        super(KivyCamera, self).__init__(**kwargs)
+        self._capture = None
+        if self.source is not None:
+            self._capture = cv2.VideoCapture(self.source)
+        #Clock.schedule_interval(self.update, 1.0 / 30)
+        while True:
+            self.update()
+    """
+    """
+    def on_source(self, *args):
+        if self._capture is not None:
+            self._capture.release()
+        self._capture = cv2.VideoCapture(self.source)
+    """
+    #@property
+
+    #def capture(self):
+        #return self._capture
+
+    def __init__(self, **kwargs):
+        super(KivyCamera, self).__init__(**kwargs)
+        self.capture = cv2.VideoCapture(self.source)
+        #while True:
+        Clock.schedule_interval(self.update, 1.0/30.0)
+
+    def update(self, dt):
+        ret, frame = self.capture.read()
+        if ret:
+            buf1 = cv2.flip(frame, 0)
+            buf = buf1.tobytes()
+            image_texture = Texture.create(
+                size=(frame.shape[1], frame.shape[0]), colorfmt="bgr"
+            )
+            image_texture.blit_buffer(buf, colorfmt="bgr", bufferfmt="ubyte")
+            self.texture = image_texture
+            #return image_texture
+
+"""
+class Video_Window(FloatLayout):
+    def build(self, main_widget):
+        #layout = MDFloatLayout(orientation='vertical')
+        # self.image = Image(size=("600dp", "350dp"), pos=("50dp", "200dp"))
+        self.image = Image()
+        #layout.add_widget(self.image)
+        # layout.add_widget(self.image, size_hint=("600dp", "350dp"), pos_hint={"50dp", "200dp"})
+        # layout.add_widget(self.image,pos_hint={"50dp", "200dp"})
+        self.capture = cv2.VideoCapture(0)
+        Clock.schedule_interval(self.load_video, 1.0 / 30.0)
+        return Image
+
+    def load_video(self, *args):
+        ret, frame = self.capture.read()
+        self.image_frame = frame
+        buffer = cv2.flip(frame, 0).tostring()
+        # for RPI change colorfmt='bgr' to colorfmt='rgba'
+        texture = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
+        texture.blit_buffer(buffer, colorfmt='bgr', bufferfmt='ubyte')
+        self.image.texture = texture
+"""
 class DatasetCamApp(App):
     pass
+
+    """
+    def show_video(sefl,main_widget):
+        show = Video_Window()
+        show.main_widget = main_widget
+    """
+
+    """
+    def build(self):
+        layout = MDBoxLayout(orientation='vertical')
+        #self.image = Image(size=("600dp", "350dp"), pos=("50dp", "200dp"))
+        self.image = Image()
+        layout.add_widget(self.image)
+        #layout.add_widget(self.image, size_hint=("600dp", "350dp"), pos_hint={"50dp", "200dp"})
+        #layout.add_widget(self.image,pos_hint={"50dp", "200dp"})
+        self.capture = cv2.VideoCapture(0)
+        Clock.schedule_interval(self.load_video, 1.0 / 30)
+        return layout
+
+    def load_video(self, *args):
+        ret, frame = self.capture.read()
+        self.image_frame = frame
+        buffer = cv2.flip(frame, 0).tostring()
+        texture = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
+        texture.blit_buffer(buffer, colorfmt='bgr', bufferfmt='ubyte')
+        self.image.texture = texture
+    """
+
 
 def show_popup(main_widget):
     global window
@@ -99,14 +259,12 @@ def show_popup(main_widget):
     window = Popup(title="", content=show, size_hint=(None, None),size=("250dp","250dp"))
     window.open()
 
-
 def create_folder(self):
     folder_name = self.ids.textinput.text
     try:
         os.makedirs(folder_name)
     except:
-        os.makedirs(folder_name + str(value - 1))
+        os.makedirs("./dataset/"+folder_name + str(value - 1))
 
-    
 main = DatasetCamApp()
 main.run()

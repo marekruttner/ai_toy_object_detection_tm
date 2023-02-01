@@ -15,13 +15,21 @@ MainWidget:
         size: "80dp", "80dp"
         pos: "500dp", "100dp"
 
-
-    Button:
-        text: "VIDEO"
-        color: 0, 0, 0, 1
-        background_color: 255, 255, 255, 1
-        size: "600dp", "350dp"
+    KivyCamera:
+        #sources: "0"
+        sizes: "600dp", "350dp"
         pos: "50dp", "200dp"
+
+    #Video:
+        #source: root.frame
+        #source: "./video.mp4"
+        #state: "play"
+        #size: "600dp", "350dp"
+        #pos: "50dp", "200dp"
+
+    #Texture:
+        #size: "600dp", "350dp"
+        #pos: "50dp", "200dp"
         
     
 
@@ -39,4 +47,5 @@ MainWidget:
         on_press: root.on_close_popup()
         on_press: root.create_folder_btn()
         pos_hint: {'center_x': 0.5, 'center_y': 0.3}
-        size_hint: 0.95, 0.4  
+        size_hint: 0.95, 0.4
+
