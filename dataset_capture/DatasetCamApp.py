@@ -27,7 +27,6 @@ class MainWidget(Widget):
     """
     def image_show(self):
         show_video(self)
-
     """
     """
     def build(self):
@@ -40,7 +39,6 @@ class MainWidget(Widget):
         Clock.schedule_interval(self.update, 1.0/33.0)
         cv2.waitKey(1)
         return layout
-
     def update(self, dt):
         # display image from cam in opencv window
         ret, frame = self.capture.read()
@@ -66,7 +64,6 @@ class MainWidget(Widget):
         self.capture = cv2.VideoCapture(0)
         Clock.schedule_interval(self.load_video, 1.0 / 30)
         return Image
-
     def load_video(self, *args):
         ret, frame = self.capture.read()
         self.image_frame = frame
@@ -89,10 +86,12 @@ class P(FloatLayout):
     def create_folder_btn(self):
         global new_button
         global value
+        global user_input
 
+        user_input = self.ids.textinput.text 
 
         if value == 1:
-            new_button = Button(text=self.ids.textinput.text)
+            new_button = Button(text=user_input)
             self.main_widget.add_widget(new_button) 
             new_button.pos = "350dp", "90dp"
             new_button.background_color = 255, 255, 255, 1
@@ -103,8 +102,8 @@ class P(FloatLayout):
 
         elif value == 2:
             
-            if new_button.text != self.ids.textinput.text:
-                new_button1 = Button(text=self.ids.textinput.text)
+            if new_button.text != user_input:
+                new_button1 = Button(text=user_input)
                 self.main_widget.add_widget(new_button1) 
                 new_button1.pos = "250dp", "90dp"
                 new_button1.background_color = 255, 255, 255, 1
@@ -112,7 +111,7 @@ class P(FloatLayout):
                 value = 3
 
             else:
-                new_button1 = Button(text=self.ids.textinput.text + str(value))
+                new_button1 = Button(text=user_input + str(value))
                 self.main_widget.add_widget(new_button1) 
                 new_button1.pos = "250dp", "90dp"
                 new_button1.background_color = 255, 255, 255, 1
@@ -120,15 +119,15 @@ class P(FloatLayout):
                 value = 3 
 
         elif value == 3:
-            if new_button.text or new_button1.text == self.ids.textinput.text:
-                new_button2 = Button(text=self.ids.textinput.text + str(value))
+            if new_button.text or new_button1.text == user_input:
+                new_button2 = Button(text=user_input + str(value))
                 self.main_widget.add_widget(new_button2) 
                 new_button2.pos = "150dp", "90dp"
                 new_button2.background_color = 255, 255, 255, 1
                 new_button2.color = 0, 0, 0, 1
                 value = 4
             else: 
-                new_button2 = Button(text=self.ids.textinput.text)
+                new_button2 = Button(text=user_input)
                 self.main_widget.add_widget(new_button2) 
                 new_button2.pos = "150dp", "90dp"
                 new_button2.background_color = 255, 255, 255, 1
@@ -137,15 +136,15 @@ class P(FloatLayout):
             
 
         elif value == 4:
-            if  new_button.text or new_button1.text or new_button2.text == self.ids.textinput.text:
-                new_button3 = Button(text=self.ids.textinput.text + str(value))
+            if  new_button.text or new_button1.text or new_button2.text == user_input:
+                new_button3 = Button(text=user_input + str(value))
                 self.main_widget.add_widget(new_button3) 
                 new_button3.pos = "50dp", "90dp"
                 new_button3.background_color = 255, 255, 255, 1
                 new_button3.color = 0, 0, 0, 1
                 value = 5
             else:
-                new_button3 = Button(text=self.ids.textinput.text)
+                new_button3 = Button(text=user_input)
                 self.main_widget.add_widget(new_button3) 
                 new_button3.pos = "50dp", "90dp"
                 new_button3.background_color = 255, 255, 255, 1
@@ -211,7 +210,6 @@ class Video_Window(FloatLayout):
         self.capture = cv2.VideoCapture(0)
         Clock.schedule_interval(self.load_video, 1.0 / 30.0)
         return Image
-
     def load_video(self, *args):
         ret, frame = self.capture.read()
         self.image_frame = frame
@@ -241,7 +239,6 @@ class DatasetCamApp(App):
         self.capture = cv2.VideoCapture(0)
         Clock.schedule_interval(self.load_video, 1.0 / 30)
         return layout
-
     def load_video(self, *args):
         ret, frame = self.capture.read()
         self.image_frame = frame
@@ -254,13 +251,14 @@ class DatasetCamApp(App):
 
 def show_popup(main_widget):
     global window
+    global user_input
     show = P()
     show.main_widget = main_widget  
     window = Popup(title="", content=show, size_hint=(None, None),size=("250dp","250dp"))
     window.open()
 
 def create_folder(self):
-    folder_name = self.ids.textinput.text
+    folder_name = user_input
     try:
         os.makedirs(folder_name)
     except:
