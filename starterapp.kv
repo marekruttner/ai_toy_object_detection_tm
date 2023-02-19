@@ -1,7 +1,7 @@
-MainWidget:
 
+MainLayout: 
 
-<MainWidget>:
+<MainLayout>:
     canvas.before:
         Color:
             rgba: (75/255, 193/255, 229/255, 1)
@@ -10,72 +10,78 @@ MainWidget:
             size: self.size
 
 
-
     Button:
         background_normal: "Nvias.jpg"
         on_press: root.NVbtnAction()
-        size: "175dp", "75dp"
-        pos: "30dp", "395dp"
+        size_hint: (.25, .15)
+        pos_hint: {'x':.07, 'y':.81} 
+
 
     Button:
-        text: "IMAGE CLASSIFICATION"
-        on_press: root.ICbtnAction()
-        size: "200dp", "150dp"
-        pos: "30dp", "225dp"
+        text: 'IMAGE CLASSIFICATION'
+        size_hint: (.3, .3)
+        pos_hint: {'x':.05, 'y':.5}
         color: 0, 0, 0, 1
-        background_color: 255, 255, 255, 1
+        background_color: 255, 255, 255, 1  
+
+
 
     Button:
-        text: "OBJECT DETECTION"
-        on_press: root.ODbtnAction()
-        size: "200dp", "150dp"
-        pos: "30dp", "25dp"
+        text: 'OBJECT DETECTION'
+        size_hint: (.3, .3)
+        pos_hint: {'x':.05, 'y':.1}
         color: 0, 0, 0, 1
         background_color: 255, 255, 255, 1
 
     Button:
         text: "MODEL COPY"
         on_press: root.MCbtnAction()
-        size: "200dp", "75dp"
-        pos: "265dp", "300dp"
+        size_hint: (.225, .15)
+        pos_hint: {'x':.4, 'y':.65}
         color: 0, 0, 0, 1
         background_color: 255, 255, 255, 1
 
     Button:
         text: "DATASET CAM"
         on_press: root.DCbtnAction()
-        size: "200dp", "75dp"
-        pos: "265dp", "225dp"
+        size_hint: (.225, .15)
+        pos_hint: {'x':.4, 'y':.5}
         color: 0, 0, 0, 1
         background_color: 255, 255, 255, 1
 
     Button:
         text: "FILE MANAGER"
-        size: "200dp", "75dp"
-        pos: "265dp", "100dp"
+        size_hint: (.225, .15)
+        pos_hint: {'x':.4, 'y':.25}
         color: 0, 0, 0, 1
         background_color: 255, 255, 255, 1
 
     Button:
         text: "SHUTDOWN"
         on_press: root.SbtnAction()
-        size: "200dp", "75dp"
-        pos: "265dp", "25dp"
+        size_hint: (.225, .15)
+        pos_hint: {'x':.4, 'y':.10}
+        color: 0, 0, 0, 1
+        background_color: 255, 255, 255, 1
+
+
+    Button:
+        text: ""
+        size_hint: (.3, .3)
+        pos_hint: {'x':.675, 'y':.5}
         color: 0, 0, 0, 1
         background_color: 255, 255, 255, 1
 
     Button:
         text: ""
-        size: "275dp", "150dp"
-        pos: "500dp", "225dp"
+        size_hint: (.3, .3)
+        pos_hint: {'x':.675, 'y':.1}
         color: 0, 0, 0, 1
-        background_color: 255, 255, 255, 1
+        background_color: 255, 255, 255, 1    
+    
 
-    Button:
-        text: ""
-        size: "275dp", "150dp"
-        pos: "500dp", "25dp"
-        color: 0, 0, 0, 1
-        background_color: 255, 255, 255, 1
+        
+
+    
 
     

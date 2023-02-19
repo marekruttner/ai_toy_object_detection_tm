@@ -1,5 +1,7 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
+from kivy.uix.floatlayout import FloatLayout
+
 import os
 import runpy
 import webbrowser
@@ -7,7 +9,7 @@ import webbrowser
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
-class MainWidget(Widget):
+class MainLayout(FloatLayout):
     def ICbtnAction(self):
         os.system("python "+DIR_PATH+'/main.py')
         
