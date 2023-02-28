@@ -27,7 +27,7 @@ class MainWidget(Widget):
         pass
 
     def SbtnAction(self):
-        exit()
+        os.system("start")
 
 
 class StarterApp(App):
