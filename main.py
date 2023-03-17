@@ -21,13 +21,17 @@ topic = 'ai_toy/detected'
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 def connect_mqtt():
+    client = mqtt.Client(client_id)
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
-            print("Connected to MQTT Broker!")
-        else:
-            print("Failed to connect, return code %d\n", rc)
+            #print("Connected to MQTT Broker!")
+            pass
 
-    client = mqtt.Client(client_id)
+        else:
+            #print("Failed to connect, return code %d\n", rc)
+            pass
+
+    #client = mqtt.Client(client_id)
     #client.username_pw_set(username, password)
     client.on_connect = on_connect
     client.connect(broker, port)
@@ -79,12 +83,12 @@ def main():
     mqTT = multiprocessing.Queue()
 
     # creating speech process to not hang processor
-    p1 = multiprocessing.Process(target=speak, args=(speakQ, ), deamon="True")
-    p2 = multiprocessing.Process(target=connect_mqtt, args=(mqTT, ), deamon="True")
+    p1 = multiprocessing.Process(target=speak, args=(speakQ, ), daemon="True")
+    p2 = multiprocessing.Process(target=connect_mqtt, args=(), daemon="True")
 
     # starting process 1 - speech
     p1.start()
-    
+    p2.start()
 
     while True:
 
@@ -211,22 +215,29 @@ def main():
                     1,5
                 )
 
+            client = connect_mqtt()
+            #client = mqtt.Client(client_id)
+            msg = f"messages: {conf_label}"
+            client.publish(topic, msg)
+            print(topic, msg)
+
+            """
             def publish(client):
                 msg_count = 0
                 while True:
                     time.sleep(1)
-                    _msg = f"messages: {conf_label}"
-                    result = client.publish(topic, _msg)
+                    msg = f"messages: {conf_label}"
+                    result = client.publish(topic, msg)
                     # result: [0, 1]
                     status = result[0]
                     if status == 0:
-                        print(f"Send `{_msg}` to topic `{topic}`")
+                        print(f"Send `{msg}` to topic `{topic}`")
                     else:
                         print(f"Failed to send message to topic {topic}")
                     msg_count += 1
-
-            client = connect_mqtt()
-            client.loop_start()
+            """
+            #client = connect_mqtt()
+            #client.loop_start()
 
             cv2.namedWindow('Capturing', cv2.WND_PROP_FULLSCREEN)
             cv2.setWindowProperty('Capturing', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
@@ -240,6 +251,7 @@ def main():
             break
 
     p1.terminate()
+    p2.terminate()
 """
 def publish(client):
     msg_count = 0
