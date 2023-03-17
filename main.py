@@ -79,8 +79,8 @@ def main():
     mqTT = multiprocessing.Queue()
 
     # creating speech process to not hang processor
-    p1 = multiprocessing.Process(target=speak, args=(speakQ, ), daemon="True")
-    p2 = multiprocessing.Process(target=connect_mqtt, args=(), deamon="True")
+    p1 = multiprocessing.Process(target=speak, args=(speakQ, ), deamon="True")
+    p2 = multiprocessing.Process(target=connect_mqtt, args=(mqTT, ), deamon="True")
 
     # starting process 1 - speech
     p1.start()
@@ -233,9 +233,10 @@ def main():
             cv2.imshow("Capturing", bordered_frame)
             #publish(client)
         #if cv2.waitKey(1) & btn.is_pressed:
-        elif cv2.waitKey(1) & 0xff == ord('q'):
+        
+        if cv2.waitKey(1) & 0xff == ord('q'):
             break
-        if cv2.getWindowProperty('Capturing', cv2.WND_PROP_VISIBLE) < 1:
+        elif cv2.getWindowProperty('Capturing', cv2.WND_PROP_VISIBLE) < 1:
             break
 
     p1.terminate()
