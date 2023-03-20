@@ -1,7 +1,8 @@
-0 man
-1 woman
-2 dog
-3 cat
-4 car
-5 phone
-6 laptop
+0 Book
+1 Keys
+2 Man
+3 Woman
+4 Car
+5 Bottle
+6 Phone
+7 Wallet
