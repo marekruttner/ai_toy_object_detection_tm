@@ -217,7 +217,7 @@ def main():
 
             client = connect_mqtt()
             #client = mqtt.Client(client_id)
-            msg = f"messages: {conf_label}"
+            msg = f"{conf_label}"
             client.publish(topic, msg)
             print(topic, msg)
 
@@ -239,13 +239,15 @@ def main():
             #client = connect_mqtt()
             #client.loop_start()
 
-            cv2.namedWindow('Capturing', cv2.WND_PROP_FULLSCREEN)
-            cv2.setWindowProperty('Capturing', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+            #cv2.namedWindow('Capturing', cv2.WND_PROP_FULLSCREEN)
+            #cv2.setWindowProperty('Capturing', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
             cv2.imshow("Capturing", bordered_frame)
             #publish(client)
         #if cv2.waitKey(1) & btn.is_pressed:
         
         if cv2.waitKey(1) & 0xff == ord('q'):
+            break
+        elif cv2.getWindowProperty('Capturing', cv2.WND_PROP_VISIBLE) < 1:
             break
         elif cv2.getWindowProperty('Capturing', cv2.WND_PROP_VISIBLE) < 1:
             break

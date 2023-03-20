@@ -21,13 +21,13 @@ class MainWidget(Widget):
         webbrowser.open('https://www.nvias.org/', new=1)
 
     def ODbtnAction(self):
-        os.system("python3 " + DIR_PATH + '/effeciend_net/detect.py')
+        os.system("python3 " + DIR_PATH + '/effeciend_net/detect.py ---model=efficientdet_lite0.tflite')
 
     def FMbtnAction(self):
-        pass
+        os.system('nemo')
 
     def SbtnAction(self):
-        exit()
+        os.system("xterm")
 
 
 class StarterApp(App):
