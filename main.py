@@ -5,14 +5,37 @@ import keras as tf
 import pyttsx3
 import math
 import os
-from gpiozero import Button
+#from gpiozero import Button
+from paho.mqtt import client as mqtt
+import random
+import time
 
-btn = Button(14)
+#btn = Button(14)
 
+broker = '192.168.0.139'
+port = 1883
+client_id = f"AiToy-{random.randint(0, 100)}"
+topic = 'ai_toy/detected'
 #from model_copy import *
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
+def connect_mqtt():
+    client = mqtt.Client(client_id)
+    def on_connect(client, userdata, flags, rc):
+        if rc == 0:
+            #print("Connected to MQTT Broker!")
+            pass
+
+        else:
+            #print("Failed to connect, return code %d\n", rc)
+            pass
+
+    #client = mqtt.Client(client_id)
+    #client.username_pw_set(username, password)
+    client.on_connect = on_connect
+    client.connect(broker, port)
+    return client
 
 def speak(speakQ, ):
     engine = pyttsx3.init()
@@ -57,13 +80,15 @@ def main():
     
     # creating a queue to share data to speech process
     speakQ = multiprocessing.Queue()
+    mqTT = multiprocessing.Queue()
 
     # creating speech process to not hang processor
     p1 = multiprocessing.Process(target=speak, args=(speakQ, ), daemon="True")
+    p2 = multiprocessing.Process(target=connect_mqtt, args=(), daemon="True")
 
     # starting process 1 - speech
     p1.start()
-    
+    p2.start()
 
     while True:
 
@@ -190,16 +215,60 @@ def main():
                     1,5
                 )
 
+            client = connect_mqtt()
+            #client = mqtt.Client(client_id)
+            msg = f"{conf_label}"
+            client.publish(topic, msg)
+            print(topic, msg)
+
+            """
+            def publish(client):
+                msg_count = 0
+                while True:
+                    time.sleep(1)
+                    msg = f"messages: {conf_label}"
+                    result = client.publish(topic, msg)
+                    # result: [0, 1]
+                    status = result[0]
+                    if status == 0:
+                        print(f"Send `{msg}` to topic `{topic}`")
+                    else:
+                        print(f"Failed to send message to topic {topic}")
+                    msg_count += 1
+            """
+            #client = connect_mqtt()
+            #client.loop_start()
+
             #cv2.namedWindow('Capturing', cv2.WND_PROP_FULLSCREEN)
             #cv2.setWindowProperty('Capturing', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
             cv2.imshow("Capturing", bordered_frame)
-        if cv2.waitKey(1) & btn.is_pressed:
+            #publish(client)
+        #if cv2.waitKey(1) & btn.is_pressed:
+        
+        if cv2.waitKey(1) & 0xff == ord('q'):
+            break
+        elif cv2.getWindowProperty('Capturing', cv2.WND_PROP_VISIBLE) < 1:
             break
         elif cv2.getWindowProperty('Capturing', cv2.WND_PROP_VISIBLE) < 1:
             break
 
     p1.terminate()
-
+    p2.terminate()
+"""
+def publish(client):
+    msg_count = 0
+    while True:
+        time.sleep(1)
+        _msg = f"messages: {conf_label}"
+        result = client.publish(topic, _msg)
+        # result: [0, 1]
+        status = result[0]
+        if status == 0:
+            print(f"Send `{_msg}` to topic `{topic}`")
+        else:
+            print(f"Failed to send message to topic {topic}")
+        msg_count += 1
+"""
 
 if __name__ == '__main__':
     """
