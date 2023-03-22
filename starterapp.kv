@@ -51,6 +51,7 @@ MainWidget:
 
     Button:
         text: "FILE MANAGER"
+        on_press: root.FMbtnAction()
         size: "200dp", "75dp"
         pos: "265dp", "100dp"
         color: 0, 0, 0, 1
@@ -58,14 +59,15 @@ MainWidget:
 
     Button:
         text: "TERMINAL"
-        on_press: root.SbtnAction()
+        on_press: root.XTbtnAction()
         size: "200dp", "75dp"
         pos: "265dp", "25dp"
         color: 0, 0, 0, 1
         background_color: 255, 255, 255, 1
 
     Button:
-        text: ""
+        text: "SHUTDOWN"
+        on_press: root.SbtnAction()
         size: "275dp", "150dp"
         pos: "500dp", "225dp"
         color: 0, 0, 0, 1
